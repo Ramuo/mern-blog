@@ -1,0 +1,33 @@
+{
+  "name": "mern-blog",
+  "version": "1.0.0",
+  "description": "Blog App build using mern stack firebase",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ramuo/mern-blog.git"
+  },
+  "author": "Alpha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ramuo/mern-blog/issues"
+  },
+  "homepage": "https://github.com/Ramuo/mern-blog#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2"
+  }
+}
