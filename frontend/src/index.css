@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.container {
-  width: 100%;
-}
-
 .loadingSpinnerContainer {
   position: fixed;
   top: 0;
@@ -23,39 +19,15 @@
   width: 64px;
   height: 64px;
   border: 8px solid;
-  border-color: #fff transparent #fff transparent;
+  border-color: #05ddff transparent #05ddff transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
-/* @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  } */
-
-@media (min-width: 480px) {
-  .container {
-    max-width: 480px;
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 976px) {
-  .container {
-    max-width: 976px;
-  }
-}
-
-@media (min-width: 1414px) {
-  .container {
-    max-width: 1414px;
+  100% {
+    transform: rotate(360deg);
   }
 }

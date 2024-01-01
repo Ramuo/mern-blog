@@ -7,7 +7,7 @@ const Header = () => {
     const path = useLocation().pathname;
 
     return (
-    <Navbar className=' p-6 shadow-lg bg-neutral'>
+    <Navbar className='p-6 shadow-lg bg-neutral'>
         <Link to='/' 
         className='self-center whitespace-nowrap text-sm 
         sm:text-xl font-semibold bg-gradient-to-r from-indigo-500 via-purple-500 

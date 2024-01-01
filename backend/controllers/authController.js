@@ -13,7 +13,33 @@ const login = asyncHandler(async(req, res)=>{
 //@route    POST /api/auth/register
 //@access   Public
 const register = asyncHandler(async(req, res)=>{
-    res.json('register user');
+    const {name, email, password} = req.body;
+
+    const userExist = await User.findOne({email});
+
+    if(userExist){
+        res.status(400);
+        throw new Error("L'utilistaur existe déjà");
+    };
+
+    const user = await User.create({
+        name,
+        email,
+        password
+    });
+
+    if(user){
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin
+        });
+    }else{
+        res.status(400);
+        throw new Error("Information invalide")
+    };
+
 });
 
 //@desc     Register User with google
