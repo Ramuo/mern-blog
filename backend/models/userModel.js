@@ -30,7 +30,10 @@ const userSchema = new mongoose.Schema({
     { timestamps: true }
 );
 
-
+//TO AUTHENTICATE USER PSW
+userSchema.methods.matchPassword = async function(enteredPassword){
+    return await bcrypt.compare(enteredPassword, this.password);
+}
 
 //TO CRYPT PSW
 userSchema.pre('save', async function(next){

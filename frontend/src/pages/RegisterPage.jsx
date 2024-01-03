@@ -52,7 +52,7 @@ const RegisterPage = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
-                  placeholder="Mot de passe"
+                  placeholder="********"
                 />
               </div>
               <div className="pl-6">
@@ -73,7 +73,7 @@ const RegisterPage = () => {
                 to={'/login'}
                 className="font-medium text-gray-600 text-sm hover:text-purple-600 pl-6"
               >
-              Vous avez un compte ?
+              Vous avez un compte ? 
               </Link>
               <Link
                 to="/#!"
@@ -86,7 +86,6 @@ const RegisterPage = () => {
         </div>
       </main>
     </section>
-  
   );
 }
 
