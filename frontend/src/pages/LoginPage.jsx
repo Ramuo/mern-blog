@@ -57,7 +57,7 @@ const LoginPage = () => {
                 Se connecter
             </h3>
             <form onSubmit={submitHandler}>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3">
                 <input
                   type="email"
                   value={email}
@@ -66,7 +66,7 @@ const LoginPage = () => {
                   placeholder="E-mail"
                 />
               </div>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3 ">
                 <input
                   type="password"
                   value={password}

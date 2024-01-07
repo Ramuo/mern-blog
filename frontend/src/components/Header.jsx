@@ -2,11 +2,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {Navbar, TextInput, Button, Dropdown, Avatar} from 'flowbite-react';
 import {AiOutlineSearch} from 'react-icons/ai';
-import {FaMoon} from 'react-icons/fa';
+import {FaMoon, FaSun} from 'react-icons/fa';
 
 
 import { useLogoutMutation } from '../slices/authApiSlice';
 import { logout } from '../slices/authSlice';
+import {toggleTheme} from '../slices/themeSlice'
 
 
 
@@ -14,6 +15,7 @@ const Header = () => {
     const path = useLocation().pathname;
 
     const {userInfo} = useSelector((state) => state.auth);
+    const {theme} = useSelector((state) => state.theme);
    
 
     const navigate = useNavigate();
@@ -60,8 +62,9 @@ const Header = () => {
         <div className="flex gap-2 md:order-2">
             <Button 
             className='w-12 h-10 hidden sm:inline' color='gray' pill
+            onClick={() => dispatch(toggleTheme())}
             >
-                <FaMoon/>
+                {theme === 'light' ? <FaSun/> : <FaMoon/>}
             </Button>
 
             {userInfo ? (

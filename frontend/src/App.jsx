@@ -12,6 +12,7 @@ import DashboardPage from './pages/DashboardPage';
 import ProjectsPage from './pages/ProjectsPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PrivateRoute from './components/PrivateRoute';
 
 const App = () => {
   return (
@@ -22,8 +23,11 @@ const App = () => {
         <Route path='/about' element={<AboutPage/>}/>
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/dashboard' element={<DashboardPage/>}/>
         <Route path='/projects' element={<ProjectsPage/>}/>
+
+        <Route path='' element ={<PrivateRoute/>}>
+          <Route path='/dashboard' element={<DashboardPage/>}/>
+        </Route>
       </Routes>
       <Footer/>
       <ToastContainer className={'toast-position'}/>

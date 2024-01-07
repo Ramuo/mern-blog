@@ -12,25 +12,25 @@ const Footer = () => {
                             <Link to='/' 
                             className='self-center whitespace-nowrap text-sm 
                             sm:text-xl font-semibold bg-gradient-to-r from-indigo-500 via-purple-500 
-                            to-pink-500 rounded p-2 text-white hover:text-gray-300
-                            dark:text-white'
+                            to-pink-500 rounded p-2 text-white hover:text-gray-300 
+                            '
                             >
                                 <span>Alpha</span>
                                 -Blog
                             </Link>
                         </div>
-                        <div className="flex flex-col items-center space-y-4 text-gray-800 md:flex-row md:space-y-0 md:space-x-6 md:ml-3"> 
+                        <div className="flex flex-col items-center space-y-4 text-gray-800 md:flex-row md:space-y-0 md:space-x-6 md:ml-3 dark:text-gray-200"> 
                             <div className=" h-10 group">
                                 <Link to="/home">Accueil</Link>
-                                <div className="group-hover:border-b group-hover:border-gray-800"></div>
+                                <div className="group-hover:border-b group-hover:border-gray-800 dark:group-hover:border-gray-200"></div>
                             </div>
                             <div className=" h-10 group">
                                 <Link to="/about">À Propos</Link>
-                                <div className="group-hover:border-b group-hover:border-gray-800"></div>
+                                <div className="group-hover:border-b group-hover:border-gray-800 dark:group-hover:border-gray-200"></div>
                             </div>
                             <div className=" h-10 group">
                                 <Link to="/projects">Projets</Link>
-                                <div className="group-hover:border-b group-hover:border-gray-800"></div>
+                                <div className="group-hover:border-b group-hover:border-gray-800 dark:group-hover:border-gray-200 "></div>
                             </div>
                         </div>
                     </div>

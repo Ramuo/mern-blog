@@ -64,7 +64,7 @@ const RegisterPage = () => {
                 {`S'inscrire`}
             </h3>
             <form onSubmit={submitHandler}>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3">
                 <input
                   type="text"
                   value={name}
@@ -73,7 +73,7 @@ const RegisterPage = () => {
                   placeholder="Nom"
                 />
               </div>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3">
                 <input
                   type="email"
                   value={email}
@@ -82,7 +82,7 @@ const RegisterPage = () => {
                   placeholder="E-mail"
                 />
               </div>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3">
                 <input
                   type="password"
                   value={password}
@@ -91,7 +91,7 @@ const RegisterPage = () => {
                   placeholder="********"
                 />
               </div>
-              <div className="pl-6 mb-3 bg-white">
+              <div className="pl-6 mb-3">
                 <input
                   type="password"
                   value={confirmPassword}
@@ -128,13 +128,13 @@ const RegisterPage = () => {
             <div className="flex items-center justify-between py-3">
               <Link
                 to={'/login'}
-                className="font-medium text-gray-600 text-sm hover:text-purple-600 pl-6"
+                className="font-medium text-gray-600 dark:text-gray-200 text-sm hover:text-purple-600 pl-6"
               >
               Vous avez un compte ? 
               </Link>
               <Link
                 to={redirect ? `/login?redirect=${redirect}` : '/login'}
-                className="font-medium text-gray-600 text-sm hover:text-purple-600 pl-6"
+                className="font-medium text-gray-600 dark:text-gray-200 text-sm hover:text-purple-600 pl-6"
               >
                 Mot de passe oublier ?
               </Link>
