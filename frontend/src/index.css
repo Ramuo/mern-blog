@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.toast-position {
+  top: 8rem !important;
+}
 .loadingSpinnerContainer {
   position: fixed;
   top: 0;

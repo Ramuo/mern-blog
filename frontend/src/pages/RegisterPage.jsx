@@ -1,17 +1,53 @@
-import { useState } from 'react';
-import {Link} from 'react-router-dom';
-
+import { useState, useEffect } from 'react';
+import {Link, useNavigate, useLocation} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {toast} from 'react-toastify';
+import {Spinner} from 'flowbite-react';
 import illustration from '../assets/img/illustration.png';
+// import GoogleBtn from '../components/GoogleBtn';
+
+
+import {useRegisterMutation} from '../slices/authApiSlice';
+import { setCredentials } from '../slices/authSlice';
+
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
+
   const [name, setName] = useState(' ');
   const [email, setEmail] = useState(' ');
   const [password, setPassword] = useState(' ');
+  const [confirmPassword, setConfirmPassword] = useState(' ');
 
+  const [register, {isLoading}] = useRegisterMutation();
+
+  const {userInfo} = useSelector((state) => state.auth);
+
+  const {search} = useLocation();
+  const sp = new URLSearchParams(search);
+  const redirect = sp.get('redirect') || '/';
+
+  useEffect(() => {
+    if(userInfo){
+      navigate(redirect);
+    }
+  }, [navigate, userInfo, redirect]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('hello')
+    if(password !== confirmPassword){
+      toast.error("Mot de passe non identique");
+      return;
+    }else{
+      try {
+        const res = await register({name, email, password}).unwrap();
+        dispatch(setCredentials({...res}));
+        navigate(redirect);
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
   }
 
   return (
@@ -55,17 +91,38 @@ const RegisterPage = () => {
                   placeholder="********"
                 />
               </div>
+              <div className="pl-6 mb-3 bg-white">
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
+                  placeholder="********"
+                />
+              </div>
               <div className="pl-6">
                 <button
                   type="submit"
                   className="py-4 w-full bg-gradient-to-r from-indigo-500 via-purple-500 
                   to-pink-500  text-white font-bold rounded-md hover:-translate-y-0.5 transition-all duration-150"
+                  disabled={isLoading}
                 >
-                  Envoyer
+                  {isLoading ? (
+                      <>
+                        <Spinner size='sm' />
+                        <span className='pl-3'>Loading...</span>
+                      </>
+                    ) : (
+                      'Envoyer'
+                    )
+                  }
                 </button>
               </div>
 
-              {/* {isLoading && <Loader/>} */}
+              {/* <div className="pl-6">
+                <GoogleBtn/>
+              </div> */}
+              
             </form>
 
             <div className="flex items-center justify-between py-3">
@@ -76,7 +133,7 @@ const RegisterPage = () => {
               Vous avez un compte ? 
               </Link>
               <Link
-                to="/#!"
+                to={redirect ? `/login?redirect=${redirect}` : '/login'}
                 className="font-medium text-gray-600 text-sm hover:text-purple-600 pl-6"
               >
                 Mot de passe oublier ?

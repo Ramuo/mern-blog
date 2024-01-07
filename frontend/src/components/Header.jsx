@@ -1,10 +1,36 @@
-import { Link, useLocation } from 'react-router-dom';
-import {Navbar, TextInput, Button} from 'flowbite-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {Navbar, TextInput, Button, Dropdown, Avatar} from 'flowbite-react';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {FaMoon} from 'react-icons/fa';
 
+
+import { useLogoutMutation } from '../slices/authApiSlice';
+import { logout } from '../slices/authSlice';
+
+
+
 const Header = () => {
     const path = useLocation().pathname;
+
+    const {userInfo} = useSelector((state) => state.auth);
+   
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [logoutApiCall] = useLogoutMutation();
+
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate('/login')
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
 
     return (
     <Navbar className='p-6 shadow-lg bg-neutral'>
@@ -32,16 +58,38 @@ const Header = () => {
             <AiOutlineSearch/>
         </Button>
         <div className="flex gap-2 md:order-2">
-            <Button className='w-12 h-10 hidden sm:inline' color='gray' pill>
+            <Button 
+            className='w-12 h-10 hidden sm:inline' color='gray' pill
+            >
                 <FaMoon/>
             </Button>
-            <Link to='/login'>
-                <Button
-                gradientDuoTone='purpleToBlue' outline
+
+            {userInfo ? (
+                <Dropdown
+                arrowIcon={false}
+                inline
+                label={<Avatar alt="user" img={userInfo.profilePicture} rounded/>}
                 >
-                    Connexion
-                </Button>
-            </Link>
+                    <Dropdown.Header>
+                        <span className='block text-sm'>@{userInfo.name}</span>
+                        <span className='block text-sm font-medium truncate'>{userInfo.email}</span>
+                    </Dropdown.Header>
+                    <Link to={'/dashboard?tab=profile'}>
+                        <Dropdown.Item>
+                            Profil
+                        </Dropdown.Item>
+                        <Dropdown.Divider/>
+                        <Dropdown.Item onClick={logoutHandler}>
+                            Se deconnecter
+                        </Dropdown.Item>
+                    </Link>
+                </Dropdown>
+            ) : (
+                <Link to='/login'>
+                    <Button gradientDuoTone='purpleToBlue' outline>Connexion</Button>
+                </Link>
+            )
+            }
             <Navbar.Toggle/>
         </div>
             <Navbar.Collapse>
