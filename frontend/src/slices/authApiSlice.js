@@ -32,6 +32,7 @@ const authApiSlice = apiSlice.injectEndpoints({
             method: 'POST'
         }),
     }),
+   
    }),
 })
 
@@ -40,5 +41,5 @@ export const {
     useLoginMutation,
     useRegisterMutation,
     useLogoutMutation,
-    useGoogleMutation
+    useGoogleMutation,
 } = authApiSlice

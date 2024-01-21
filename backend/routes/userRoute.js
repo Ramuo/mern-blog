@@ -1,21 +1,24 @@
 import express from 'express';
 import {
-    updateUser,
-    deleteUser,
     logoutUser,
     getUsers,
-    getUserById
+    getUserProfile,
+    updateUserProfile,
+    deleteUser
+
 } from '../controllers/userController.js';
+import {protect} from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 
 router.route('/').post(getUsers)
-router.route('/logout').post(logoutUser)
-router.route('/:id')
-    .put(updateUser)
-    .get(getUserById)
-    .delete(deleteUser)
+router.route('/logout').post(logoutUser);
+router.route('/profile')
+    .get(protect, getUserProfile)
+    .put(protect, updateUserProfile);
+router.route('/:id').delete(protect, deleteUser)
+
 
 
 export default router;

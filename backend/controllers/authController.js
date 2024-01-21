@@ -117,9 +117,10 @@ const google = asyncHandler(async(req, res)=>{
 });
 
 
+
 export {
     login,
     register,
     logout,
-    google
+    google,
 };

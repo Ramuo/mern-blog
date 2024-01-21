@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
-import DashPrifle from '../components/DashPrifle';
+import DashProfile from '../components/DashProfile';
 
 
 const DashboardPage = () => {
@@ -21,7 +21,7 @@ const DashboardPage = () => {
       <div className="md:w-56">
         <DashSidebar/>
       </div>
-      {tab === 'profile' && <DashPrifle/>}
+      {tab === 'profile' && <DashProfile/>}
     </div>
   );
 };

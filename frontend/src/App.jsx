@@ -14,6 +14,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 
+// import TestPage from './pages/TestPage';
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -24,6 +26,8 @@ const App = () => {
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/projects' element={<ProjectsPage/>}/>
+        {/* <Route path='/test' element={<TestPage/>}/> */}
+        
 
         <Route path='' element ={<PrivateRoute/>}>
           <Route path='/dashboard' element={<DashboardPage/>}/>

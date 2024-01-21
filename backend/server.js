@@ -1,3 +1,4 @@
+import path from 'path';
 import express from "express";
 import dotenv from 'dotenv';
 import cookieParser from "cookie-parser";
@@ -9,6 +10,8 @@ import {notFound, errorHandler} from './middleware/errorMiddleware.js';
 
 import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+
 
 
 
@@ -30,7 +33,12 @@ app.use(cookieParser());
 //ROUTES
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/upload', uploadRoutes);
 
+
+//STATIC ROUTE
+const __dirname = path.resolve(); //Set __dir to current directory
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('/', (req, res) => {
     res.send('API is running');

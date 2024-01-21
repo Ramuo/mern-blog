@@ -69,7 +69,7 @@ const RegisterPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
+                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none dark:text-gray-700"
                   placeholder="Nom"
                 />
               </div>
@@ -78,7 +78,7 @@ const RegisterPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
+                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none dark:text-gray-700"
                   placeholder="E-mail"
                 />
               </div>
@@ -87,7 +87,7 @@ const RegisterPage = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
+                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none dark:text-gray-700"
                   placeholder="********"
                 />
               </div>
@@ -96,7 +96,7 @@ const RegisterPage = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none"
+                  className="w-full pl-4 pr-6 py-4 font-bold placeholder-gray-400 rounded-md focus:outline-none dark:text-gray-700"
                   placeholder="********"
                 />
               </div>
