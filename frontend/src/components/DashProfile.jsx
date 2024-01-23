@@ -1,6 +1,6 @@
 import { useState,  useEffect, useRef} from 'react';
-import {useNavigate,} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useNavigate, Link} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
 import { Button, TextInput, Modal, Alert} from 'flowbite-react';
 import {HiOutlineExclamationCircle} from 'react-icons/hi'
 import {toast} from 'react-toastify';
@@ -24,6 +24,8 @@ import { logout } from '../slices/authSlice';
 const DashProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const {userInfo}= useSelector((state) => state.auth);
   
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -128,7 +130,6 @@ const DashProfile = () => {
         <>
           <h1 className='my-7 text-center font-semibold text-3xl'>{profile.name}</h1>
           <form className='flex flex-col gap-4' onSubmit={submitHandler}>
-            {loadingProfileUpdate && <Loader/>}
             <div>
               <input 
               type='text'
@@ -144,7 +145,6 @@ const DashProfile = () => {
               ref={filePickerRef}
               className='hidden'
               />
-              { loadingProfileImg && <Loader/>}  
             </div>
             <div 
             className="w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full"
@@ -173,10 +173,24 @@ const DashProfile = () => {
             <Button 
             type='submit' 
             placeholder='Mot de passe'
-            gradientDuoTone={'purpleToBlue'} outline
+            gradientDuoTone={'purpleToBlue'} 
+            outline
+            disabled= {loadingProfileUpdate || loadingProfileImg}
             >
-              Mettre à jour
+              {loadingProfileUpdate ? 'Loading' : 'Mettre à jour'}
             </Button>
+            {userInfo.isAdmin && (
+              <Link to='/createpost'>
+                <Button
+                type='button'
+                gradientDuoTone='purpleToPink'
+                className='w-full'
+                >
+                  Créer un poste
+                </Button>
+              </Link>
+            )
+            }
           </form>
         </>
       )}
