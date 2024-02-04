@@ -11,6 +11,8 @@ import {notFound, errorHandler} from './middleware/errorMiddleware.js';
 import userRoute from './routes/userRoute.js';
 import authRoute from './routes/authRoute.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import postRoute from './routes/postRoute.js';
+import uploadRouter from './routes/uploadRoutes.js';
 
 
 
@@ -31,9 +33,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //ROUTES
+app.use('/api/uploadpost', uploadRouter);
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/posts', postRoute);
 
 
 //STATIC ROUTE

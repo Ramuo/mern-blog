@@ -2,7 +2,6 @@
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom'
 import { Button, FileInput, Select, Spinner, TextInput, Alert } from 'flowbite-react';
-// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {toast} from 'react-toastify'
 
@@ -11,9 +10,9 @@ import {
     useCreatePostMutation
 } from '../slices/postApiSlice';
 
-const CreatePostPage = () => {
+const UpdatePostPage = () => {
     const navigate = useNavigate();
-
+ 
 
     const [title, setTitle] = useState('')
     const [category, setCategory] = useState('')
@@ -31,7 +30,7 @@ const CreatePostPage = () => {
         createpost, 
         {isLoading: loadingCreatepost, error: createPostError}
     ] = useCreatePostMutation();
-   
+
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -112,14 +111,6 @@ const CreatePostPage = () => {
                     }
                 </Button>
             </div>
-            {/* <ReactQuill 
-            theme='snow' 
-            placeholder='Votre message...' 
-            className='h-72 mb-12'
-            onChange={(value) => {
-                setContent({ ...content, content: value });
-            }}
-            /> */}
             <textarea
             rows="5"
             cols="10"
@@ -152,4 +143,4 @@ const CreatePostPage = () => {
     );
 };
 
-export default CreatePostPage;
+export default UpdatePostPage;

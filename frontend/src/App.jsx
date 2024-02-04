@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ProjectsPage from './pages/ProjectsPage';
 import CreatePostPage from './pages/CreatePostPage';
+import UpdatePostPage from './pages/UpdatePostPage';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -38,6 +39,7 @@ const App = () => {
 
         <Route path='' element ={<AdminRoute/>}>
           <Route path='/createpost' element={<CreatePostPage/>}/>
+          <Route path='/updatepost/:postId' element={<UpdatePostPage/>}/>
         </Route>
       </Routes>
       <Footer/>

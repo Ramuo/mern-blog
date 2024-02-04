@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
+import DashPosts from '../components/DashPosts';
 
 
 const DashboardPage = () => {
@@ -18,10 +19,14 @@ const DashboardPage = () => {
   
   return (
     <div className='min-h-screen flex flex-col md:flex-row'>
+      {/* Sidebar */}
       <div className="md:w-56">
         <DashSidebar/>
       </div>
+      {/* PROFILE */}
       {tab === 'profile' && <DashProfile/>}
+      {/* Posts */}
+      {tab === 'posts' && <DashPosts/>}
     </div>
   );
 };
