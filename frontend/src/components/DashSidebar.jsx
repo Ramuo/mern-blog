@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {Sidebar} from 'flowbite-react';
-import {HiArrowSmRight, HiUser, HiDocumentText} from 'react-icons/hi';
+import {HiArrowSmRight, HiUser, HiDocumentText, HiOutlineUserGroup} from 'react-icons/hi';
 
 const DashSidebar = () => {
     const location = useLocation();
@@ -33,15 +33,26 @@ const DashSidebar = () => {
                 </Link>
 
                 {userInfo.isAdmin && (
-                    <Link to='/dashboard?tab=posts'>
-                        <Sidebar.Item
-                        active={tab === 'posts'}
-                        icon={HiDocumentText}
-                        as='div'
-                        >
-                            Publications
-                        </Sidebar.Item>
-                    </Link>
+                    <>
+                        <Link to='/dashboard?tab=posts'>
+                            <Sidebar.Item
+                            active={tab === 'posts'}
+                            icon={HiDocumentText}
+                            as='div'
+                            >
+                                Publications
+                            </Sidebar.Item>
+                        </Link>
+                        <Link to='/dashboard?tab=users'>
+                            <Sidebar.Item
+                            active={tab === 'users'}
+                            icon={HiOutlineUserGroup}
+                            as='div'
+                            >
+                                Utilisateurs
+                            </Sidebar.Item>
+                        </Link>
+                    </>
                 ) }
                 <Sidebar.Item icon={HiArrowSmRight} className='cursor-pointer'>
                     Se deconnecter

@@ -12,17 +12,20 @@ import DashboardPage from './pages/DashboardPage';
 import ProjectsPage from './pages/ProjectsPage';
 import CreatePostPage from './pages/CreatePostPage';
 import UpdatePostPage from './pages/UpdatePostPage';
+import PostPage from './pages/PostPage';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
+import ScrollToTop from './components/ScrollToTop';
 
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop/>
       <Header/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
@@ -30,6 +33,7 @@ const App = () => {
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/projects' element={<ProjectsPage/>}/>
+        <Route path='/posts/:postslug' element={<PostPage/>}/>
         {/* <Route path='/test' element={<TestPage/>}/> */}
         
 

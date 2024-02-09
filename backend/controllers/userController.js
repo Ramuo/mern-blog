@@ -15,19 +15,65 @@ const deleteUser = asyncHandler(async(req, res) => {
     });
 });
 
-//@desc     Logout User
-//@route    post /api/users/logout
-//@access   Private
-const logoutUser = asyncHandler(async(req, res)=>{
-    res.json('logout user');
-});
 
 //@desc     Get All Users
-//@route    GET /api/users
+//@route    GET /api/users/getUsers
 //@access   Private
 const getUsers = asyncHandler(async(req, res)=>{
-    res.json('get all users');
+    if (!req.user.isAdmin) {
+        res.status(404);
+        throw new Error("You are not allowed to see all users");
+      }
+      try {
+        const startIndex = parseInt(req.query.startIndex) || 0;
+        const limit = parseInt(req.query.limit) || 9;
+        const sortDirection = req.query.sort === 'asc' ? 1 : -1;
+    
+        const users = await User.find()
+          .sort({ createdAt: sortDirection })
+          .skip(startIndex)
+          .limit(limit);
+    
+        const usersWithoutPassword = users.map((user) => {
+          const { password, ...rest } = user._doc;
+          return rest;
+        });
+    
+        const totalUsers = await User.countDocuments();
+    
+        const now = new Date();
+    
+        const oneMonthAgo = new Date(
+          now.getFullYear(),
+          now.getMonth() - 1,
+          now.getDate()
+        );
+        const lastMonthUsers = await User.countDocuments({
+          createdAt: { $gte: oneMonthAgo },
+        });
+    
+        res.status(200).json({
+          users: usersWithoutPassword,
+          totalUsers,
+          lastMonthUsers,
+        });
+      } catch (error) {
+        res.status(404);
+        throw new Error("You are not allowed to see all users");
+      }
 });
+
+
+//@desc     Get all users
+//@route    GET /api/users
+//@access   Private/Admin
+// const getUsers = asyncHandler(async(req, res) => {
+//     const users = await User.find({});
+
+//     res.status(200).json(users);
+    
+// });
+
 
 //@desc     Get user profile
 //@route    GET /api/users/profile
@@ -110,7 +156,6 @@ const getUserById = asyncHandler(async(req, res)=>{
 
 export {
     deleteUser,
-    logoutUser,
     getUsers,
     getUserProfile,
     updateUserProfile,

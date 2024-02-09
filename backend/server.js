@@ -13,6 +13,7 @@ import authRoute from './routes/authRoute.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import postRoute from './routes/postRoute.js';
 import uploadRouter from './routes/uploadRoutes.js';
+import commentRoute from './routes/commentRoute.js';
 
 
 
@@ -38,6 +39,7 @@ app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/posts', postRoute);
+app.use('/api/comments', commentRoute);
 
 
 //STATIC ROUTE
