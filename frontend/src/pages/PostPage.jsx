@@ -1,48 +1,34 @@
-import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import CallToAction from '../components/CallToAction';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Loader from "../components/Loader";
 import CommentSection from '../components/CommentSection';
-// import PostCard from '../components/PostCard';
+import { Button, Alert } from 'flowbite-react';
+import PostCard from "../components/PostCard"
 
-export default function PostPage() {
-  const { postSlug } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [post, setPost] = useState(null);
+
+
+import {useGetPostByIdQuery} from "../slices/postApiSlice";
+
+
+
+const PostPage = () => {
+  const {id: postId} = useParams();
+
   const [recentPosts, setRecentPosts] = useState(null);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`/api/posts/getposts?slug=${postSlug}`);
-        const data = await res.json();
-        console.log(data)
-        if (!res.ok) {
-          setError(true);
-          setLoading(false);
-          return;
-        }
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
-          setError(false);
-        }
-      } catch (error) {
-        setError(true);
-        setLoading(false);
-      }
-    };
-    fetchPost();
-  }, [postSlug]);
+  const {
+    data: post,
+    isLoading,
+    error,
+    refetch
+  } = useGetPostByIdQuery(postId);
 
-
- 
+  
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/posts/getposts?limit=3`);
+        const res = await fetch(`/api/posts/filter-posts?limit=3`);
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);
@@ -54,53 +40,59 @@ export default function PostPage() {
     }
   }, []);
 
-  if (loading)
-    return (
-      <div className='flex justify-center items-center min-h-screen'>
-        <Spinner size='xl' />
-      </div>
-    );
   return (
-    <main className='p-3 flex flex-col max-w-6xl mx-auto min-h-screen'>
-      <h1 className='text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
-        {post && post.title}
-      </h1>
-      <Link
-        to={`/search?category=${post && post.category}`}
-        className='self-center mt-5'
-      >
-        <Button color='gray' pill size='xs'>
-          {post && post.category}
-        </Button>
-      </Link>
-      <img
-        src={post && post.image}
-        alt={post && post.title}
-        className='mt-10 p-3 max-h-[600px] w-full object-cover'
-      />
-      <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
-        <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span className='italic'>
-          {post && (post.content.length / 1000).toFixed(0)} mins read
-        </span>
-      </div>
-      <div
-        className='p-3 max-w-2xl mx-auto w-full post-content'
-        dangerouslySetInnerHTML={{ __html: post && post.content }}
-      ></div>
-      <div className='max-w-4xl mx-auto w-full'>
-        <CallToAction />
-      </div>
-      <CommentSection />
-      
+    <>
+      {isLoading ? (
+        <Loader/>
+      ): error ? (
+        <Alert color="failure" className='mt-5'>
+          {error?.data?.message || error.error}
+        </Alert>
+      ) : (
+        <main className='p-3 flex flex-col max-w-5xl mx-auto lg:px-8 bg-slate-800'>
+          <h1 className='text-3xl mt-5 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl'>
+            {post.title}
+          </h1>
+          <Link
+          to={`/search?category=${post.category}`}
+          className='self-center mt-5'
+          >
+            <Button  gradientDuoTone='purpleToBlue' pill size='sm'>
+              {post.category}
+            </Button>
+          </Link>
+          <img
+          src={post.image}
+          alt={post.title}
+          className='mt-10 p-3 lg:mx-36 max-h-[500px] object-cover'
+          />
+          <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
+            <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+            <span className='italic'>
+              {(post.content.length / 1000).toFixed(0)} minutes pour lire l'article
+            </span>
+          </div>
+          <div 
+          dangerouslySetInnerHTML={{__html: post.content}}
+          className='p-3 max-w-2xl mx-auto w-full post-content'
+          ></div>
 
-      {/* <div className='flex flex-col justify-center items-center mb-5'>
-        <h1 className='text-xl mt-5'>Recent articles</h1>
-        <div className='flex flex-wrap gap-5 mt-5 justify-center'>
-          {recentPosts &&
-            recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
-        </div>
-      </div> */}
-    </main>
-  );
+          <CommentSection postId={post._id}/>
+
+          {/* Recent Articles section */}
+          <div className="container-xl lg:container m-auto px-4 py-6">
+            <h1 className='text-xl text-center text-gray-100 font-semibold my-4'>Articles Récents</h1>
+              <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {recentPosts &&
+                recentPosts.map((post) => <PostCard key={post._id} post={post} />)}
+            </div>
+          </div>
+        </main>
+      )}
+    </>
+  )
 }
+
+export default PostPage;
+
+

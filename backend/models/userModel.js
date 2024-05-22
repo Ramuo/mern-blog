@@ -17,18 +17,18 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        profilePicture: {
-            type: String,
-            default:
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-        },
-        image:{
-            type: String,
+        avatar: {
+            // type: String,
+            public_id: String,
+            url: String,
         },
         isAdmin: {
             type: Boolean,
+            required: true,
             default: false,
         },
+        resetPasswordToken: String,
+        resetPasswordExpire: Date,
     },
     { timestamps: true }
 );

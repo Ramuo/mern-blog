@@ -1,3 +1,5 @@
+
+
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -5,21 +7,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
-import ProjectsPage from './pages/ProjectsPage';
-import CreatePostPage from './pages/CreatePostPage';
-import UpdatePostPage from './pages/UpdatePostPage';
+import ProfilePage from './pages/ProfilePage';
+import BlogPage from './pages/BlogPage';
 import PostPage from './pages/PostPage';
+import SearchPage from './pages/SearchPage';
+import NotFoundPage from './pages/NotFoundPage';
+
+import UsersListPage from './pages/admin/UsersListPage';
+import DashboardPage from './pages/admin/DashboardPage';
+import CreatePostPage from './pages/admin/CreatePostPage';
+import PostsListPage from './pages/admin/PostsListPage';
+import PostEditPage from './pages/admin/PostEditPage';
+import CommentsListPage from './pages/admin/CommentsListPage';
+
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
-import ScrollToTop from './components/ScrollToTop';
+
 
 
 const App = () => {
@@ -29,25 +39,28 @@ const App = () => {
       <Header/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/about' element={<AboutPage/>}/>
         <Route path='/register' element={<RegisterPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
-        <Route path='/projects' element={<ProjectsPage/>}/>
-        <Route path='/posts/:postslug' element={<PostPage/>}/>
-        {/* <Route path='/test' element={<TestPage/>}/> */}
-        
+        <Route path='/blog' element={<BlogPage/>}/>
+        <Route path='/search' element={<SearchPage/>}/>
+        <Route path='/post/:id' element={<PostPage/>}/>
 
         <Route path='' element ={<PrivateRoute/>}>
-          <Route path='/dashboard' element={<DashboardPage/>}/>
+          <Route path='/profile' element={<ProfilePage/>}/>
         </Route>
 
         <Route path='' element ={<AdminRoute/>}>
-          <Route path='/createpost' element={<CreatePostPage/>}/>
-          <Route path='/updatepost/:postId' element={<UpdatePostPage/>}/>
+          <Route path='/admin/usersList' element={<UsersListPage/>}/>
+          <Route path='/admin/dashboard' element={<DashboardPage/>}/>
+          <Route path='/admin/create-post' element={<CreatePostPage/>}/>
+          <Route path='/admin/postsList' element={<PostsListPage/>}/>
+          <Route path='/admin/post/:id/edit' element={<PostEditPage/>}/>
+          <Route path='/admin/commentsList' element={<CommentsListPage/>}/>
         </Route>
+        <Route path='/*' element={<NotFoundPage/>}/>
       </Routes>
       <Footer/>
-      <ToastContainer className={'toast-position'}/>
+      <ToastContainer />
     </BrowserRouter>
   )
 }

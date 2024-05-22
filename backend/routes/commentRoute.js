@@ -1,21 +1,29 @@
 import express from 'express';
-import {protect} from '../middleware/authMiddleware.js'
 import {
   createComment,
-//   deleteComment,
-//   editComment,
-//   getPostComments,
-//   getcomments,
-//   likeComment,
+  getPostComments,
+  getCommentById,
+  likeComment,
+  editComment,
+  deleteComment,
+  getComments,
 } from '../controllers/commentController.js';
+import {protect, admin} from '../middleware/authMiddleware.js';
+import checkOjectId from '../middleware/checkObjectId.js';
 
 const router = express.Router();
 
-router.post('/create', protect, createComment);
-// router.get('/getPostComments/:postId', getPostComments);
-// router.put('/likeComment/:commentId', protect, likeComment);
-// router.put('/editComment/:commentId', protect, editComment);
-// router.delete('/deleteComment/:commentId', protect, deleteComment);
-// router.get('/getcomments', protect, getcomments);
+
+router.route('/create-comment').post(protect, createComment);
+router.route('/getComments').get(protect, admin, getComments);
+router.route('/getComments/:postId').get(protect, getPostComments);
+router.route('/likeComment/:commentId').put(protect, likeComment);
+router.route('/editComment/:commentId').put(protect, editComment);
+router.route('/deleteComment/:commentId').delete(protect, deleteComment);
+router.route('/:id')
+  .get(protect, checkOjectId, getCommentById)
+
+
+
 
 export default router;

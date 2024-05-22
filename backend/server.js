@@ -9,11 +9,10 @@ import {notFound, errorHandler} from './middleware/errorMiddleware.js';
 
 
 import userRoute from './routes/userRoute.js';
-import authRoute from './routes/authRoute.js';
-import uploadRoutes from './routes/uploadRoutes.js';
-import postRoute from './routes/postRoute.js';
-import uploadRouter from './routes/uploadRoutes.js';
-import commentRoute from './routes/commentRoute.js';
+import posteRoute from './routes/postRoute.js';
+import uploadRoute from './routes/uploadRoute.js';
+import commentRoute from './routes/commentRoute.js'
+
 
 
 
@@ -28,17 +27,22 @@ connectDB();
 const app = express();
 
 //BODY PARSER MIDDLEWARE
-app.use(express.json());
+app.use( express.json({
+    limit: "10mb",
+    verify: (req, res, buf) => {
+      req.rawBody = buf.toString();
+    },
+  })
+);
 app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 
 //ROUTES
-app.use('/api/uploadpost', uploadRouter);
+
 app.use('/api/users', userRoute);
-app.use('/api/auth', authRoute);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/posts', postRoute);
+app.use('/api/posts', posteRoute)
+app.use('/api/upload', uploadRoute);
 app.use('/api/comments', commentRoute);
 
 

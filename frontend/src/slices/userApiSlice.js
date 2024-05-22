@@ -1,43 +1,85 @@
 import {apiSlice} from './apiSlice';
-import {USERS_URL, UPLOAD_URL} from '../constants';
+import {USERS_URL} from '../constants';
+
 
 
 const authApiSlice = apiSlice.injectEndpoints({
    endpoints: (builder) => ({
-    uploadProfileImage: builder.mutation({
+    login : builder.mutation({
         query: (data) => ({
-            url: `${UPLOAD_URL}`,
+            url: `${USERS_URL}/login`,
             method: 'POST',
             body: data
         }),
     }),
-    getUserProfile: builder.query({
-        query: () => ({
-            url: `${USERS_URL}/profile`, 
-        }),
-        keepUnusedDataFor: 5
-    }),
-    updateUser: builder.mutation({
+    register: builder.mutation({
         query: (data) => ({
-            url: `${USERS_URL}/profile`,
+            url: `${USERS_URL}/register`,
+            method: 'POST',
+            body: data
+        }),
+    }),
+    logout: builder.mutation({
+        query: () => ({
+            url: `${USERS_URL}/logout`,
+            method: 'POST'
+        }),
+    }),
+    updateUserprofile: builder.mutation({
+        query: (data) => ({
+          url: `${USERS_URL}/profile`,
+          method: 'PUT',
+          body: data,
+        }),
+        invalidatesTags: ['Users']
+    }),
+    uploadavatar: builder.mutation({
+        query: (data) => ({
+            url: `${USERS_URL}/uploadavatar`,
             method: 'PUT',
             body: data
         }),
-        invalidatesTags: ['Users'],
+        invalidatesTags: ['Users']
     }),
     deleteUser: builder.mutation({
         query: (userId) => ({
-            url: `${USERS_URL}/${userId}`,
-            method: 'DELETE'
+          url: `${USERS_URL}/${userId}`,
+          method: 'DELETE',
         }),
+    }),
+    getUsers: builder.query({
+        query: () => ({
+          url: USERS_URL,
+        }),
+        providesTags: ['Users'],
+        keepUnusedDataFor: 5,
+    }),
+    getUserById: builder.query({
+        query: (id) => ({
+          url: `${USERS_URL}/${id}`,
+        }),
+        providesTags: ['Users'],
+        keepUnusedDataFor: 5,
+    }),
+    getUsersForDashboard: builder.query({
+        query: () => ({
+          url: `${ USERS_URL}/dashboard`,
+        }),
+        providesTags: ['Users'],
+        keepUnusedDataFor: 5,
     }),
    }),
 })
 
 
 export const {
-    useUploadProfileImageMutation,
-    useUpdateUserMutation,
-    useGetUserProfileQuery,
+    useLoginMutation,
+    useRegisterMutation,
+    useLogoutMutation,
+    useUpdateUserprofileMutation,
+    useUploadavatarMutation,
     useDeleteUserMutation,
-} = authApiSlice
+    useGetUsersQuery,
+    useGetUserByIdQuery,
+    useGetUsersForDashboardQuery
+} = authApiSlice;

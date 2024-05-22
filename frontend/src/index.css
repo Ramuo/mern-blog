@@ -10,6 +10,52 @@ body {
   font-size: 1.05rem;
 }
 
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  color: inherit;
+}
+
+.quill > * {
+  border-color: inherit !important;
+  color: inherit !important;
+}
+.quill > .ql-toolbar {
+  /* border radius of the toolbar */
+  border-radius: 10px 10px 0 0;
+}
+.quill > .ql-container {
+  /* border radius of the container and for font size*/
+  font-size: inherit;
+  border-radius: 0 0 10px 10px;
+}
+
+.ql-toolbar.ql-snow .ql-picker-label {
+  color: inherit !important;
+  opacity: 0.76;
+}
+.ql-snow .ql-picker {
+  color: inherit !important;
+}
+.quill > .ql-container > .ql-editor.ql-blank::before {
+  /* for placeholder */
+  color: inherit;
+}
+.ql-snow.ql-toolbar button svg {
+  opacity: 0.76;
+  color: currentColor;
+}
+.ql-snow .ql-stroke {
+  /* for the border of the editor */
+  stroke: currentColor !important;
+}
+.ql-snow .ql-fill {
+  /* for the bg color */
+  fill: currentColor !important;
+}
+.ql-picker-item {
+  /* for dropdown */
+  color: #444 !important;
+}
+
 .toast-position {
   top: 8rem !important;
 }
@@ -30,7 +76,7 @@ body {
   width: 64px;
   height: 64px;
   border: 8px solid;
-  border-color: #05ddff transparent #05ddff transparent;
+  border-color: #fff transparent #fff transparent;
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
@@ -71,4 +117,13 @@ body {
 
 .dark .post-content a {
   color: red;
+}
+
+@media screen(lg) {
+  .bg-hero {
+    width: 2000px;
+    height: 250px;
+    left: 30%;
+    @apply absolute rounded-l-full top-52 bg-softBlue;
+  }
 }
